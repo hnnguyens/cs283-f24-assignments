@@ -1,10 +1,25 @@
 # cs283-f24-assignments
 Assignment framework for CS283 Game Programming
 
+A01: Particle System
 https://github.com/user-attachments/assets/b791fda2-8b76-428a-947e-29bf94d81b73
 
 https://github.com/user-attachments/assets/f84b6787-4d96-461b-acd2-6b80b745c5db
 
+A03: Virtual World
 ![Screenshot 2024-09-19 163959](https://github.com/user-attachments/assets/37e94a5b-dd72-4593-adad-e72a180e9072)
 ![Screenshot 2024-09-19 164402](https://github.com/user-attachments/assets/8abc5996-fe78-4703-bb51-cf6b168d265a)
 ![Screenshot 2024-09-19 164349](https://github.com/user-attachments/assets/b5361a20-9176-44bf-b5b9-a35ac04d2d26)
+
+Virtual World: Redone:
+
+<img width="1440" alt="Screenshot 2024-09-27 at 00 12 31" src="https://github.com/user-attachments/assets/7f2d365d-c9a4-4039-a5d0-651ef2ae9880">
+<img width="1440" alt="Screenshot 2024-09-27 at 00 12 58" src="https://github.com/user-attachments/assets/c4c37118-04a6-4cd7-ba90-132711cd28a8">
+<img width="1440" alt="Screenshot 2024-09-27 at 00 13 25" src="https://github.com/user-attachments/assets/21a5416b-b13e-4bc3-8ae6-fb26eb0483a7">
+<img width="1440" alt="Screenshot 2024-09-27 at 00 14 24" src="https://github.com/user-attachments/assets/f07947d8-a398-480c-84be-c24bf646edf6">
+
+Asset Credit:
+- Low Poly Simple Nature Pack, JustCreate: https://assetstore.unity.com/packages/3d/environments/landscapes/low-poly-simple-nature-pack-162153
+- 3D The Blacksmith's House, GooseLi Games: https://assetstore.unity.com/packages/3d/environments/fantasy/3d-the-blacksmith-s-house-252972
+- Low Poly Brick Houses, Broken Vector: https://assetstore.unity.com/packages/3d/props/exterior/low-poly-brick-houses-131899
+- Skybox Series Free, Avionx: https://assetstore.unity.com/packages/2d/textures-materials/sky/skybox-series-free-103633
