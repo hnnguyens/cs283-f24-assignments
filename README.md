@@ -23,3 +23,9 @@ Asset Credit:
 - 3D The Blacksmith's House, GooseLi Games: https://assetstore.unity.com/packages/3d/environments/fantasy/3d-the-blacksmith-s-house-252972
 - Low Poly Brick Houses, Broken Vector: https://assetstore.unity.com/packages/3d/props/exterior/low-poly-brick-houses-131899
 - Skybox Series Free, Avionx: https://assetstore.unity.com/packages/2d/textures-materials/sky/skybox-series-free-103633
+
+A04: Flythrough Camera
+https://github.com/user-attachments/assets/07515fb4-bd12-4c10-a80e-4f05ff1825f5
+
+Asset Credit (Character):
+- THYRA | Low Poly Female Character: https://assetstore.unity.com/packages/3d/characters/humanoids/thyra-low-poly-female-character-207703
