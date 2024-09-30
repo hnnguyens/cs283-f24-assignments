@@ -59,7 +59,7 @@ public class FlyCamera : MonoBehaviour
         }
 
         direction.Normalize(); //standardizes the vector
-        transform.Translate(direction * speed * Time.deltaTime); //moves and updates the camera!
+        transform.Translate(direction * actualSpeed * speed * Time.deltaTime); //moves and updates the camera!
 
         //smoothing indicates whether or not a key is bein pressed; movement activated
         if (direction != Vector3.zero) //movement
