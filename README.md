@@ -29,3 +29,10 @@ https://github.com/user-attachments/assets/07515fb4-bd12-4c10-a80e-4f05ff1825f5
 
 Asset Credit (Character):
 - THYRA | Low Poly Female Character: https://assetstore.unity.com/packages/3d/characters/humanoids/thyra-low-poly-female-character-207703
+
+A05: Rigid & Spring Camera movement:
+https://github.com/user-attachments/assets/05735ec8-c201-4f13-80d5-fb3a2b4a5449
+https://github.com/user-attachments/assets/60fd5769-3589-49e4-8961-eefff1dccfc3
+
+
+
