@@ -34,5 +34,7 @@ A05: Rigid & Spring Camera movement:
 https://github.com/user-attachments/assets/05735ec8-c201-4f13-80d5-fb3a2b4a5449
 https://github.com/user-attachments/assets/60fd5769-3589-49e4-8961-eefff1dccfc3
 
+A06: Bezier curves & Gaze Controller
+https://github.com/user-attachments/assets/e377b9d7-9c0d-4168-ae5f-bdf6ead97307
 
 
