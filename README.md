@@ -40,5 +40,7 @@ https://github.com/user-attachments/assets/e377b9d7-9c0d-4168-ae5f-bdf6ead97307
 A07: Animations & Collisions
 https://github.com/user-attachments/assets/16f34060-5489-479e-b21d-2114332d1787
 
+A08: Collection Game
+https://github.com/user-attachments/assets/0559dd8c-3ce5-453c-9068-114adba8a616
 
 
