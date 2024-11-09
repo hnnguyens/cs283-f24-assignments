@@ -22,12 +22,13 @@ public class CollectionGame : MonoBehaviour
         {
             count++;
             UpdateScoreUI(); //updates the score in game
+            //animation here 
             other.gameObject.SetActive(false); //hides the collectible object 
         }
     }
 
     public void UpdateScoreUI()
     {
-        Score.text = count.ToString();
+        Score.text = "Coins collected: " + count.ToString();
     }
 }

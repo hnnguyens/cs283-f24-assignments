@@ -5,7 +5,7 @@ using UnityEngine;
 public class Spawner : MonoBehaviour
 {
     public GameObject coin; //game object to spawn; prefab template 
-    public float spawnRange = 0.25f; //radius from the spawner center
+    public float spawnRange = 2f; //radius from the spawner center
     public int max = 10; //max number of objects to spawn
 
     private GameObject[] coins; //for keeping track
