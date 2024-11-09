@@ -23,6 +23,7 @@ Asset Credit:
 - 3D The Blacksmith's House, GooseLi Games: https://assetstore.unity.com/packages/3d/environments/fantasy/3d-the-blacksmith-s-house-252972
 - Low Poly Brick Houses, Broken Vector: https://assetstore.unity.com/packages/3d/props/exterior/low-poly-brick-houses-131899
 - Skybox Series Free, Avionx: https://assetstore.unity.com/packages/2d/textures-materials/sky/skybox-series-free-103633
+- Low Poly Skeleton, asoliddev https://assetstore.unity.com/packages/3d/characters/low-poly-skeleton-162347 
 
 A04: Flythrough Camera
 https://github.com/user-attachments/assets/07515fb4-bd12-4c10-a80e-4f05ff1825f5
@@ -42,5 +43,10 @@ https://github.com/user-attachments/assets/16f34060-5489-479e-b21d-2114332d1787
 
 A08: Collection Game
 https://github.com/user-attachments/assets/0559dd8c-3ce5-453c-9068-114adba8a616
+
+A09: Wander
+https://github.com/user-attachments/assets/c095d774-fa9e-483d-a62a-f4bf60373998
+
+
 
 
