@@ -12,6 +12,7 @@ public class CollectionGame : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Score.text = "Coins collected: 0";
         UpdateScoreUI(); //method
     }
 
@@ -22,7 +23,7 @@ public class CollectionGame : MonoBehaviour
         {
             count++;
             UpdateScoreUI(); //updates the score in game
-            //animation here 
+            //animation here
             other.gameObject.SetActive(false); //hides the collectible object 
         }
     }

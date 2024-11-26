@@ -5,17 +5,24 @@ using UnityEngine;
 public class SpringFollowCamera : MonoBehaviour
 {
     public Transform target; //assign to character in Unity IDE
-    public Transform camera; //assign to camera; (actual position)
-    public float hDistance = 2.0f;
-    public float vDistance = 5.0f;
+    public float hDistance = 5.0f;
+    public float vDistance = 1.0f;
     public float dampConstant = 10f; //dampening factor; smooths speed gradually
     public float springConstant = 5f; //spring factor;
+
     public Vector3 velocity = Vector3.zero;
+    public Vector3 actualPos;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        // Initialize the camera's position at the ideal position
+        Vector3 tPos = target.position;
+        Vector3 tForward = target.forward;
+        Vector3 tUp = target.up;
+
+        actualPos = tPos - tForward * hDistance + tUp; // * vDistance;
+        transform.position = actualPos;
     }
 
     // Update is called once per frame
@@ -26,27 +33,27 @@ public class SpringFollowCamera : MonoBehaviour
 
     private void LateUpdate() //for smoother transitions
     {
-        // tPos, tUp, tForward = Position, up, and forward vector of target
+        //target's position and orientation
+        Vector3 tPos = target.position;
+        Vector3 tForward = target.forward;
+        Vector3 tUp = target.up;
 
-        // Camera position is offset from the target position
-        Vector3 idealEye = target.position - target.forward * hDistance + target.up * vDistance;
+        //compute the ideal camera position
+        Vector3 idealEye = tPos - tForward * hDistance + tUp; // * vDistance;
 
-        // The direction the camera should point is from the target to the camera position
-        Vector3 cameraForward = target.position - camera.position;
-
-        // Compute the acceleration of the spring, and then integrate
-        Vector3 displacement = camera.position - idealEye;
-
+        //compute the displacement and spring acceleration
+        Vector3 displacement = actualPos - idealEye;
         Vector3 springAccel = (-springConstant * displacement) - (dampConstant * velocity);
 
-        // Update the camera's velocity based on the spring acceleration
+        //update velocity and position using spring acceleration
         velocity += springAccel * Time.deltaTime;
+        actualPos += velocity * Time.deltaTime;
 
-        camera.position += velocity * Time.deltaTime;
+        //compute the direction the camera should point
+        Vector3 cameraForward = tPos - actualPos;
 
-        // Set the camera's position and rotation with the new values
-        // This code assumes that this code runs in a script attached to the camera
-        transform.position = camera.position;
+        //update the camera's position and rotation
+        transform.position = actualPos;
         transform.rotation = Quaternion.LookRotation(cameraForward);
     }
 }

@@ -6,7 +6,7 @@ public class Spawner : MonoBehaviour
 {
     public GameObject coin; //game object to spawn; prefab template 
     public float spawnRange = 2f; //radius from the spawner center
-    public int max = 10; //max number of objects to spawn
+    public int max = 50; //max number of objects to spawn
 
     private GameObject[] coins; //for keeping track
 
@@ -19,7 +19,7 @@ public class Spawner : MonoBehaviour
         //initialize and spawn collectibles
         for (int i = 0; i < max; i++)
         {
-            SpawnCollectible(); //calls method
+            SpawnCollectible(i); //calls method
         }
     }
 
@@ -28,7 +28,7 @@ public class Spawner : MonoBehaviour
     {
         for (int i = 0; i < max; i++) //check for inactive & respawn them
         {
-            if (coins[i] != null && !coins[i].activeInHierarchy)
+            if (!coins[i].activeInHierarchy)
             {
                 SpawnCollectible(i);
             }
@@ -36,30 +36,14 @@ public class Spawner : MonoBehaviour
     }
 
     //for spawning objects
-    private void SpawnCollectible(int index = -1) //initiialized w/ -1 so that when called it'll find first null entry to spawn
+    private void SpawnCollectible(int index) //initiialized w/ -1 so that when called it'll find first null entry to spawn
     {
         Vector3 randomPosition = transform.position + Random.insideUnitSphere * spawnRange;
         randomPosition.y = Terrain.activeTerrain.SampleHeight(randomPosition); //so that it sits on terrain
 
         GameObject collectible = Instantiate(coin, randomPosition, Quaternion.identity); //prefab template
 
-        if (index == -1) //called without specified index 
-        {
-            for (int i = 0; i < max; i++)
-            {
-                if (coins[i] == null)
-                {
-                    collectible.SetActive(true);
-                    coins[i] = collectible;
-                    break;
-                }
-            }
-        }
-
-        else //using specified index 
-        {
-            collectible.SetActive(true);
-            coins[index] = collectible;
-        }
+        collectible.SetActive(true);
+        coins[index] = collectible;
     }
 }
