@@ -5,6 +5,7 @@ using BTAI;
 using System;
 using TMPro;
 
+//talking cat NPC
 public class BehaviorUnique : MonoBehaviour
 {
     public float detectionRange = 2f; //range from NPC
@@ -14,7 +15,7 @@ public class BehaviorUnique : MonoBehaviour
 
     private Root m_btRoot = BT.Root(); //root node
 
-    // Start is called before the first frame update
+    //Start is called before the first frame update
     void Start()
     {
         Dialogue.enabled = false; //hide UI initially
@@ -33,7 +34,7 @@ public class BehaviorUnique : MonoBehaviour
 
     }
 
-    // Update is called once per frame, runs the tree
+    //Update is called once per frame, runs the tree
     void Update()
     {
         m_btRoot.Tick(); //iterate 
@@ -60,7 +61,7 @@ public class BehaviorUnique : MonoBehaviour
         // Wait until the player clicks the mouse button (left click)
         while (!Input.GetMouseButtonDown(0))
         {
-            yield return BTState.Continue; // Wait one frame
+            yield return BTState.Continue; //wait one frame
         }
 
         Dialogue.enabled = false; //hide again

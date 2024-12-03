@@ -7,16 +7,17 @@ using TMPro;
 using UnityEngine.AI;
 using Random = System.Random;
 
-//skeleton (essentially a patroller); wandering with this attached too
+//skeleton (essentially a patroller); wandering attached 
 public class BehaviorMinion : MonoBehaviour
 {
     public TMP_Text attackUI;
     public WanderBehavior wanderBehaviorScript; //reference to wander script
+    public NavMeshAgent agent;
     public Transform player;
     public Transform NPC;
     public Transform boundary; //cube for home area
     public Transform retreatSpot; //sphere for npc area  
-    public float detectionRange = 2f;
+    public float detectionRange = 20f;
     public float speed = 3f; 
     bool InBoundary = false;
     bool IsAttacking = false;
@@ -32,6 +33,7 @@ public class BehaviorMinion : MonoBehaviour
         //Setup:
         player = GameObject.FindGameObjectWithTag("Player").transform;
         NPC = transform;
+        agent = GetComponent<NavMeshAgent>();
         boundary = GameObject.FindGameObjectWithTag("Boundary").transform;
         retreatSpot = GameObject.FindGameObjectWithTag("Origin").transform;
         wanderBehaviorScript = GetComponent<WanderBehavior>(); //get wander component 
@@ -40,40 +42,45 @@ public class BehaviorMinion : MonoBehaviour
         selector.OpenBranch(); 
         m_btRoot.OpenBranch(selector); //connect the branch
 
-        Sequence attackSequence = BT.Sequence(); 
+        //sequence attackSequence = BT.Sequence();
+        Sequence attackSequence = BT.Sequence();
         Sequence chaseSequence = BT.Sequence(); 
         Sequence retreatSequence = BT.Sequence(); 
         Sequence wanderSequence = BT.Sequence();
 
         // Setup nodes
         attackSequence.OpenBranch(
-            BT.Condition(() => InRange()), // If in range
-            BT.RunCoroutine(() => Attack("You've been hit!")) // Attack action
+            BT.If(() => InRange()).OpenBranch( //if in range
+            BT.RunCoroutine(() => Attack("You've been hit!"))) //attack action
         );
 
         chaseSequence.OpenBranch(
-            BT.Condition(() => InRange()), // If in range
-            BT.RunCoroutine(() => Chase()) // Chase action
+            BT.If(InRange).OpenBranch( //if in range
+            BT.RunCoroutine(Chase)) //chase action
         );
 
         retreatSequence.OpenBranch(
-            BT.Condition(() => InBoundary), // If in boundary
-            BT.RunCoroutine(() => Retreat()) // Retreat action
+            BT.If(() => InBoundary).OpenBranch( //if in boundary
+            BT.RunCoroutine(Retreat)) //retreat action
         );
 
         wanderSequence.OpenBranch(
-            BT.Condition(() => !InRange() && !InBoundary),
-            BT.RunCoroutine(() => Wander()) // Use the new Wander coroutine
+            BT.If(() => !InRange() && !InBoundary).OpenBranch(   
+            BT.RunCoroutine(Wander)) //use the new Wander coroutine
         );
 
         //add sequence to selector
         selector.OpenBranch(attackSequence, chaseSequence, retreatSequence, wanderSequence);
 
-}
+    }
 
-    // Update is called once per frame
+    //update is called once per frame
     void Update()
     {
+        Collider c = boundary.GetComponent<Collider>();
+        Bounds bounds = c.bounds; //of collider
+        InBoundary = bounds.Contains(NPC.position); //returns boolean
+
         m_btRoot.Tick(); //continue through tree 
     }
 
@@ -87,22 +94,6 @@ public class BehaviorMinion : MonoBehaviour
         }
 
         return false;
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Boundary")) //if in home area
-        {
-            InBoundary = true;
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Boundary"))
-        {
-            InBoundary = false;
-        }
     }
 
     //action: attack node
@@ -129,18 +120,9 @@ public class BehaviorMinion : MonoBehaviour
             yield return BTState.Failure;
         }
 
-        Vector3 direction = (player.position - NPC.position).normalized;
+        agent.SetDestination(player.position);
 
-        //rotate NPC
-        if (direction != Vector3.zero)
-        {
-            Quaternion lookRotation = Quaternion.LookRotation(direction);
-            NPC.rotation = Quaternion.Slerp(NPC.rotation, lookRotation, Time.deltaTime * speed); //rotate smoothly
-        }
-
-        NPC.position += direction * speed * Time.deltaTime; //move NPC
-
-        yield return BTState.Continue;
+        yield return BTState.Success;
     }
 
     //action: retreat (to a specific transform)
@@ -150,17 +132,8 @@ public class BehaviorMinion : MonoBehaviour
         {
             yield return BTState.Failure;
         }
-
-        Vector3 direction = (retreatSpot.position - NPC.position).normalized;
-
-        //rotate NPC
-        if (direction != Vector3.zero)
-        {
-            Quaternion lookRotation = Quaternion.LookRotation(direction);
-            NPC.rotation = Quaternion.Slerp(NPC.rotation, lookRotation, Time.deltaTime * speed); //rotate smoothly
-        }
-
-        NPC.position += direction * speed * Time.deltaTime; // Move NPC backward
+ 
+        agent.SetDestination(retreatSpot.position);
 
         yield return BTState.Continue;
     }
@@ -168,8 +141,6 @@ public class BehaviorMinion : MonoBehaviour
     //wander code from Wander script 
     private IEnumerator<BTState> Wander()
     {
-        NavMeshAgent agent = GetComponent<NavMeshAgent>();
-
         Vector3 randomPoint = NPC.position + (UnityEngine.Random.insideUnitSphere * 10f);
         NavMeshHit hit;
 
@@ -180,7 +151,7 @@ public class BehaviorMinion : MonoBehaviour
 
         agent.SetDestination(target);
 
-        // wait for agent to reach destination
+        //wait for agent to reach destination
         while (agent.remainingDistance > 0.1f)
         {
             yield return BTState.Continue;

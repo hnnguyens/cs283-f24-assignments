@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerMotionController : MonoBehaviour
 {
-    public float linearSpeed = 2.0f;
+    public float linearSpeed = 10.0f;
     public float turningSpeed = 5.0f;
     bool isMoving; //for animation
 
@@ -26,8 +26,13 @@ public class PlayerMotionController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        CharacterController controller = GetComponent<CharacterController>();
+        float horizontal = Input.GetAxis("Horizontal");
+
         Vector3 velocity = Vector3.zero;
         Quaternion avelocity = Quaternion.identity;
+
+        isMoving = false;
 
         if (Input.GetKey(KeyCode.W))
         {
@@ -41,25 +46,20 @@ public class PlayerMotionController : MonoBehaviour
             isMoving = true;
         }
 
-        if (Input.GetKey(KeyCode.A))
+        if (Input.GetKey(KeyCode.A)) //left
         {
-            avelocity = Quaternion.Euler(0, turningSpeed * Time.deltaTime, 0);
+            avelocity = Quaternion.Euler(0, horizontal * turningSpeed, 0);
             isMoving = true;
         }
 
-        if (Input.GetKey(KeyCode.D))
+        if (Input.GetKey(KeyCode.D)) //right
         {
-            avelocity = Quaternion.Euler(0, -turningSpeed * Time.deltaTime, 0);
+            avelocity = Quaternion.Euler(0, horizontal * turningSpeed, 0);
             isMoving = true;
         }
 
-        else
-        {
-            isMoving = false;
-        }
-
-        CharacterController controller = GetComponent<CharacterController>();
         controller.Move(velocity * Time.deltaTime);
+        transform.rotation *= avelocity;
 
         animator.SetBool("isRunning", isMoving); //update animator bool
 
